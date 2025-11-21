@@ -9,27 +9,27 @@ import { Transaction } from '../models/transaction';
 export class TransactionService {
   private apiUrl = 'https://localhost:7163/api/Transactions'
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient) {
 
   }
 
-  getAll(): Observable<Transaction[]>{
-    return this.http.get<Transaction[]>(this.apiUrl+"/All");
+  getAll(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.apiUrl + "/All");
   }
 
-  getById(id: number): Observable<Transaction>{
-    return this.http.get<Transaction>(this.apiUrl+"/Details/"+id);
+  getById(id: number): Observable<Transaction> {
+    return this.http.get<Transaction>(this.apiUrl + "/Details/" + id);
   }
 
-  create(transaction:Transaction): Observable<Transaction>{
-    return this.http.post<Transaction>(this.apiUrl+"/Create/", transaction);
+  create(transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(this.apiUrl + "/Create/", transaction);
   }
 
-  update(transaction:Transaction): Observable<Transaction>{
-    return this.http.post<Transaction>(this.apiUrl+"/Update/", transaction);
+  update(id: number, transaction: Transaction): Observable<Transaction> {
+    return this.http.put<Transaction>(this.apiUrl + "/Update/" + id, transaction);
   }
 
-  delete(id: number): Observable<void>{
-    return this.http.delete<void>(this.apiUrl+"/Delete/"+id);
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(this.apiUrl + "/Delete/" + id);
   }
 }

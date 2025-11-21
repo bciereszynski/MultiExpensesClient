@@ -3,7 +3,7 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-lightly bg-opacity-25 py-3">
-                    <h3 class="card-title mb-0 fw-semibold">Add New Transaction</h3>
+                    <h3 class="card-title mb-0 fw-semibold">{{ editMode ? 'Edit' : 'Add New' }} Transaction</h3>
                 </div>
                 <div class="card-body p-4">
                     <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
@@ -44,7 +44,8 @@
                             <label for="amount" class="form-label fw-medium">Amount</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="amount" formControlName="amount"
-                                    placeholder="0.00" step="0.01" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" (blur)="formatAmount()" />
+                                    placeholder="0.00" step="0.01" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$"
+                                    (blur)="formatAmount()" />
                                 <div *ngIf="transactionForm.get('amount')?.invalid && (transactionForm.get('amount')?.touched || transactionForm.get('amount')?.dirty)"
                                     class="text-danger small mt-2 ms-1">
                                     Enter a valid amount.

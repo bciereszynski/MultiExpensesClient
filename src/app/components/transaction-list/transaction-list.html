@@ -48,7 +48,12 @@
                     </td>
                     <td>{{ transaction.category }}</td>
                     <td>{{ transaction.amount | currency }}</td>
-                    <td>options</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-2"
+                            (click)="editTransaction(transaction)">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger"
+                            (click)="deleteTransaction(transaction)">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
