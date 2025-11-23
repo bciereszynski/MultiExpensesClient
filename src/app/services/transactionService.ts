@@ -14,22 +14,22 @@ export class TransactionService {
   }
 
   getAll(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.apiUrl + "/All");
+    return this.http.get<Transaction[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<Transaction> {
-    return this.http.get<Transaction>(this.apiUrl + "/Details/" + id);
+    return this.http.get<Transaction>(this.apiUrl + "/" + id);
   }
 
   create(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.apiUrl + "/Create/", transaction);
+    return this.http.post<Transaction>(this.apiUrl, transaction);
   }
 
   update(id: number, transaction: Transaction): Observable<Transaction> {
-    return this.http.put<Transaction>(this.apiUrl + "/Update/" + id, transaction);
+    return this.http.put<Transaction>(this.apiUrl + "/" + id, transaction);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + "/Delete/" + id);
+    return this.http.delete<void>(this.apiUrl + "/" + id);
   }
 }
