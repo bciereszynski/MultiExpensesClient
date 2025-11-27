@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/user/user';
+import { User } from '../models/user';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Authresponse } from '../models/authresponse/authresponse';
+import { Authresponse } from '../models/authresponse';
 import { Router } from '@angular/router';
 
 @Injectable({

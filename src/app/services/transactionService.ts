@@ -7,29 +7,30 @@ import { Transaction } from '../models/transaction';
   providedIn: 'root',
 })
 export class TransactionService {
-  private apiUrl = 'https://localhost:7163/api/Transactions'
+  private baseUrl = 'http://localhost:7163/api/groups/${groupId}/transactions';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
 
+  getAll(groupId: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.baseUrl}`);
   }
 
-  getAll(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.apiUrl);
+  getById(groupId: number, id: number): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.baseUrl}/${id}`);
   }
 
-  getById(id: number): Observable<Transaction> {
-    return this.http.get<Transaction>(this.apiUrl + "/" + id);
+  create(groupId: number, transaction: Partial<Transaction>): Observable<Transaction> {
+    // strip groupId/userId if accidentally provided
+    const { groupId: _g, userId: _u, ...payload } = transaction as any;
+    return this.http.post<Transaction>(`${this.baseUrl}`, payload);
   }
 
-  create(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.apiUrl, transaction);
+  update(groupId: number, id: number, transaction: Partial<Transaction>): Observable<Transaction> {
+    const { groupId: _g, userId: _u, ...payload } = transaction as any;
+    return this.http.put<Transaction>(`${this.baseUrl}/${id}`, payload);
   }
 
-  update(id: number, transaction: Transaction): Observable<Transaction> {
-    return this.http.put<Transaction>(this.apiUrl + "/" + id, transaction);
-  }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + "/" + id);
+  delete(groupId: number, id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }
