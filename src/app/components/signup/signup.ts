@@ -41,7 +41,7 @@ export class Signup {
             const signup = this.signupForm.value;
             this.authService.register(signup).subscribe({
                 next: () => {
-                  this.router.navigate(['/transactions']);
+                  this.router.navigate(['/groups']);
                 },
                 error: (err) => {
                   this.errorMessage = err.error?.message || 'Registration failed. Please try again.';

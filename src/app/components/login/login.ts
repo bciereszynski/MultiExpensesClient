@@ -32,7 +32,7 @@ export class Login {
             const login = this.loginForm.value;
             this.authService.login(login).subscribe({
                 next: () => {
-                  this.router.navigate(['/transactions']);
+                  this.router.navigate(['/groups']);
                 },
                 error: (err) => {
                   this.errorMessage = err.error?.message || 'Login failed. Please try again.';
