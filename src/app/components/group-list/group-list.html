@@ -1,0 +1,34 @@
+<div class="container py-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Groups</h4>
+    <div>
+      <button class="btn btn-sm btn-outline-secondary me-2" (click)="loadGroups()">Refresh</button>
+      <button class="btn btn-sm btn-primary" (click)="create()">New group</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <ul *ngIf="groups?.length" class="list-group">
+    <li *ngFor="let g of groups" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-semibold">{{ g.name }}</div>
+        <div class="small text-muted">Members: {{ g.members.length || 0 }} • Created: {{ g.createdAt | date:'short' }}</div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-sm btn-outline-primary" (click)="open(g)">Open</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="edit(g)">Edit</button>
+        <button class="btn btn-sm btn-outline-danger" (click)="delete(g)">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="!loading && (!groups || groups.length === 0)" class="alert alert-info">
+    You are not a member of any groups yet.
+  </div>
+</div>

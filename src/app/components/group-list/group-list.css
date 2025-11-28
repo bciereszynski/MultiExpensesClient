@@ -1,0 +1,4 @@
+/* Minimal styling to match existing app look */
+.list-group-item .btn-group .btn {
+  min-width: 64px;
+}

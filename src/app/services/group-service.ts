@@ -1,17 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Group } from '../models/group';
 import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GroupsService {
-  // Update base URL if your backend runs on a different port
-  private apiUrl = 'http://localhost:7163/api/groups';
+export class GroupService {
+  private apiUrl = 'https://localhost:7163/api/Groups';
+
+  private selected$ = new BehaviorSubject<Group | null>(null);
+  readonly selectedGroup$: Observable<Group | null> = this.selected$.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  selectGroup(group: Group | null): void {
+    this.selected$.next(group);
+  }
+
+  clearSelection(): void {
+    this.selected$.next(null);
+  }
+
+  get currentSelected(): Group | null {
+    return this.selected$.getValue();
+  }
 
   getAll(): Observable<Group[]> {
     return this.http.get<Group[]>(this.apiUrl);
