@@ -28,34 +28,43 @@
         </div>
     </div>
 
-    <h3>Transactions</h3>
-    <div class="table responsive">
-        <table class="table table-hover allign-middle">
-            <thead>
-                <tr>
-                    <th style="width: 15%;">Date</th>
-                    <th style="width: 15%;">Type</th>
-                    <th style="width: 25%;">Category</th>
-                    <th style="width: 20%;">Amount</th>
-                    <th style="width: 15%;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let transaction of transactions">
-                    <td>{{ transaction.createdAt | date:'dd MMM yyyy HH:mm' }}</td>
-                    <td [ngClass]="transaction.type === 'Income' ? 'bg-success' : 'bg-danger'">
-                        {{ transaction.type }}
-                    </td>
-                    <td>{{ transaction.category }}</td>
-                    <td>{{ transaction.amount | currency }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary me-2"
-                            (click)="editTransaction(transaction)">Edit</button>
-                        <button class="btn btn-sm btn-outline-danger"
-                            (click)="deleteTransaction(transaction)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">{{ selectedGroup?.name || 'Transactions' }}</h3>
+        <div>
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="loadTransactions(selectedGroup?.id!)">Refresh</button>
+            <button class="btn btn-primary btn-sm" (click)="addTransaction()">Add Transaction</button>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="text-center py-3">
+        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <ul *ngIf="transactions?.length" class="list-group">
+        <li *ngFor="let t of transactions" class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+                <div class="fw-semibold">
+                    {{ t.category }}
+                    <span class="badge bg-secondary ms-2">{{ t.type }}</span>
+                </div>
+                <div class="small text-muted">
+                    {{ t.createdAt | date:'dd MMM yyyy HH:mm' }} • {{ '-' }}
+                </div>
+            </div>
+
+            <div class="text-end">
+                <div class="fw-semibold">{{ t.amount | currency }}</div>
+                <div class="btn-group mt-2">
+                    <button class="btn btn-sm btn-outline-primary" (click)="editTransaction(t)">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteTransaction(t)">Delete</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div *ngIf="!loading && (!transactions || transactions.length === 0)" class="alert alert-info">
+        No transactions yet for this group.
     </div>
 </div>

@@ -3,10 +3,6 @@
     <a class="navbar-brand text-dark fw-bold me-4" href="#">Multi Expenses</a>
 
     <div class="ms-auto d-flex align-items-center" *ngIf="authService.currentUser$ | async">
-      <a class="btn btn-outline-dark me-2" routerLink="/add">
-        <i class="bi bi-plus-circle"></i>
-        Add transactions
-      </a>
       <a class="btn btn-outline-dark me-1" aria-label="Logout" (click)="authService.logout()  ">
         <i class="bi bi-door-closed"></i>
         Logout
