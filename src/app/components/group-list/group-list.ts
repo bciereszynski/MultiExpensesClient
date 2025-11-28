@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Group } from '../../models/group';
-import { GroupService } from '../../services/group-service';
+import { GroupService } from '../../services/groupService';
 
 @Component({
   selector: 'app-groups-list',
